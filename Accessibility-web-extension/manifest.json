@@ -1,0 +1,24 @@
+{
+  "manifest_version": 2,
+  "name": "Accesibility-Bad-Smells-Finder",
+  "version": "1.0",
+  "description": "Buscador de problemas de accesibilidad web",
+  "icons": {
+    "48": "icons/web-accessibility.png"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "http://localhost/*",
+        "https://www.arba.gov.ar/*",
+        "https://autogestion.apronline.gov.ar/*"
+      ],
+      "js": [
+        "src/js/page_elements.js",
+        "src/js/body_elements.js",
+        "src/js/scripts_elements.js",
+        "src/js/content_script.js"
+      ]
+    }
+  ]
+}
