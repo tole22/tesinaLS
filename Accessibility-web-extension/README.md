@@ -1,6 +1,5 @@
 
-SRC
-    JS
+#### SRC/JS
         - page_elements.js
             contiene los elementos del head y body(BodyElements, HeadElements).  Y una funcion(esDeRiesgo) para determinar si son elementos que pueden presentar problemas.
         - body_elements.js
