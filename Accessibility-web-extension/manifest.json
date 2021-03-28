@@ -1,24 +1,32 @@
-{
-  "manifest_version": 2,
-  "name": "Accesibility-Bad-Smells-Finder",
-  "version": "1.0",
-  "description": "Buscador de problemas de accesibilidad web",
-  "icons": {
-    "48": "icons/web-accessibility.png"
-  },
-  "content_scripts": [
-    {
-      "matches": [
-        "http://localhost/*",
-        "https://www.arba.gov.ar/*",
-        "https://autogestion.apronline.gov.ar/*"
-      ],
-      "js": [
-        "src/js/page_elements.js",
-        "src/js/body_elements.js",
-        "src/js/scripts_elements.js",
-        "src/js/content_script.js"
-      ]
-    }
-  ]
-}
+  {
+    "name": "Accesibility-Bad-Smells-Finder",
+    "version": "1.0",
+    "description": "Buscador de problemas de accesibilidad web",
+    "icons": {
+      "48": "src/assets/web-accessibility.png"
+    },
+    "permissions": [
+      "*://localhost/*",
+      "webRequest"
+    ],
+    "content_scripts": [
+      {
+        "matches": [
+          "https://autogestion.apronline.gov.ar/*",
+          "https://*/*",
+          "http://*/*"
+        ],
+        "js": [
+          "src/common/constants.js",
+          "src/common/page-elements.js",
+          "src/detection-tools/controllers/events.controller.js",
+          "src/detection-tools/controllers/page-structure.controller.js",
+          "src/detection-tools/controllers/bad_smell_report.controller.js",
+          "src/detection-tools/check-accessible-elements/handlers-asignation.js",
+          "src/detection-tools/form-messages/form_messages.js",
+          "src/content-script.js"
+        ]
+      }
+    ],
+    "manifest_version": 2
+  }

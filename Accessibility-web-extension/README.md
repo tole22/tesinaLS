@@ -1,5 +1,15 @@
+## Extension Web para Tesina Accesibilidad Web
 
-#### SRC/JS
+#### Para utilizar
+- npm install
+
+- JSDoc, Documentacion en Javascript
+npm run docs >>> genera la documentacion
+
+
+#### Files
+SRC
+    JS
         - page_elements.js
             contiene los elementos del head y body(BodyElements, HeadElements).  Y una funcion(esDeRiesgo) para determinar si son elementos que pueden presentar problemas.
         - body_elements.js
@@ -14,4 +24,3 @@
                 - DIVS con onclicks asociados:
                     has_click_events_onScript(idElement, script) - hago una busqueda en el script(en formato string) que recibo como parametro y hago una busqueda utilizando el ID del elemento que recibo como parametro.
                     element_has_click_events_onScripts(idElement) - busca en todos los archivos .js de la pagina, si el elemento tiene eventos clicks asociados.
-                    

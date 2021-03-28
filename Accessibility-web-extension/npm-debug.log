@@ -1,0 +1,55 @@
+0 info it worked if it ends with ok
+1 verbose cli [ 'C:\\Program Files\\nodejs\\node.exe',
+1 verbose cli   'C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js',
+1 verbose cli   'view',
+1 verbose cli   '--json',
+1 verbose cli   'jsdoc',
+1 verbose cli   'description',
+1 verbose cli   'dist-tags.latest',
+1 verbose cli   'homepage',
+1 verbose cli   'version' ]
+2 info using npm@3.10.10
+3 info using node@v6.11.1
+4 silly mapToRegistry name jsdoc
+5 silly mapToRegistry using default registry
+6 silly mapToRegistry registry https://npm.wdprapps.disney.com/
+7 silly mapToRegistry data Result {
+7 silly mapToRegistry   raw: 'jsdoc',
+7 silly mapToRegistry   scope: null,
+7 silly mapToRegistry   escapedName: 'jsdoc',
+7 silly mapToRegistry   name: 'jsdoc',
+7 silly mapToRegistry   rawSpec: '',
+7 silly mapToRegistry   spec: 'latest',
+7 silly mapToRegistry   type: 'tag' }
+8 silly mapToRegistry uri https://npm.wdprapps.disney.com/jsdoc
+9 verbose request uri https://npm.wdprapps.disney.com/jsdoc
+10 verbose request no auth needed
+11 info attempt registry request try #1 at 8:43:21 PM
+12 verbose request id df8c030a6a358713
+13 http request GET https://npm.wdprapps.disney.com/jsdoc
+14 info retry will retry, error on last attempt: Error: connect ETIMEDOUT 10.110.215.52:443
+15 info attempt registry request try #2 at 8:43:53 PM
+16 http request GET https://npm.wdprapps.disney.com/jsdoc
+17 info retry will retry, error on last attempt: Error: connect ETIMEDOUT 10.110.215.52:443
+18 info attempt registry request try #3 at 8:45:14 PM
+19 http request GET https://npm.wdprapps.disney.com/jsdoc
+20 verbose stack Error: connect ETIMEDOUT 10.110.215.245:443
+20 verbose stack     at Object.exports._errnoException (util.js:1018:11)
+20 verbose stack     at exports._exceptionWithHostPort (util.js:1041:20)
+20 verbose stack     at TCPConnectWrap.afterConnect [as oncomplete] (net.js:1086:14)
+21 verbose cwd c:\Users\maximiliano.toledo\OneDrive\Tesina de Licenciatura en Sistemas\Extension-Chrome\Extension-Tesina-Testing
+22 error Windows_NT 10.0.19041
+23 error argv "C:\\Program Files\\nodejs\\node.exe" "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js" "view" "--json" "jsdoc" "description" "dist-tags.latest" "homepage" "version"
+24 error node v6.11.1
+25 error npm  v3.10.10
+26 error code ETIMEDOUT
+27 error errno ETIMEDOUT
+28 error syscall connect
+29 error network connect ETIMEDOUT 10.110.215.245:443
+30 error network This is most likely not a problem with npm itself
+30 error network and is related to network connectivity.
+30 error network In most cases you are behind a proxy or have bad network settings.
+30 error network
+30 error network If you are behind a proxy, please make sure that the
+30 error network 'proxy' config is set properly.  See: 'npm help config'
+31 verbose exit [ 1, true ]

@@ -1,0 +1,17 @@
+{
+  "name": "chrome_extension",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Ercror: no test specified\" && exit 1",
+    "docs": "./node_modules/.bin/jsdoc -c jsdoc.json"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "docdash": "^1.2.0",
+    "jsdoc": "^3.6.6"
+  }
+}
