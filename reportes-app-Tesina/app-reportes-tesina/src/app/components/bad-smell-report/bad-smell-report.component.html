@@ -1,0 +1,55 @@
+<h2>{{ uri }}</h2>
+<hr>
+<h3>Ver todos los eventos por tipo de smell</h3>
+<p>al seleccionar se monstraran todos los eventos registrados</p>
+<button 
+    class="btn btn-info mr-3" 
+    [routerLink]="['/bad-smell-events', { 'uri': uri, 'type': 'FORM_MESSAGE'}]">
+        Mensajes de formularios inaccesibles
+</button>
+<button 
+    class="btn btn-info mr-3" 
+    [routerLink]="['/bad-smell-events', { 'uri': uri, 'type': 'FLOAT_ELEMENT'}]">
+        Elementos flotantes inaccesibles
+</button>
+<hr>
+
+<h3>Elementos de la pagina con bad smells de accesibilidad</h3>
+<div class="container" *ngIf="!loading">
+    <h5>Sitio:</h5><p>{{ reportedPage.baseURI }}</p>
+    <h5>Último update:</h5><p>{{ reportedPage.ultimoUpdate | date:'medium' }}</p>
+    <h5>Fecha de Creacion:</h5><p>{{ reportedPage.fechaCreacion | date:'medium' }}</p>
+
+    <h4 class="text-center">Listado de elementos inaccesibles segun el Bad Smell</h4>
+    <h5>Mensajes inaccesibles en formularios web
+        <button class="btn btn-info mr-3" (click)="changeHideFormMessagesTable(table1)">
+                Mostrar Elementos <i class="fas fa-angle-down"></i>
+        </button>
+    </h5>
+    <table #table1 class="table" [hidden]="hideFormMessagesTable">
+        <thead>
+          <tr>
+            <th scope="col">Identificador</th>
+            <th scope="col">Tipo Elemento</th>
+            <th scope="col">Último Update</th>
+            <th scope="col">Ocurrencias</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let elemento of formMessagesElements; let i = index">
+            <th scope="row">{{ elemento.outerHTML }}</th>
+            <td>{{ elemento.tagName }}</td>
+            <td>{{ elemento.ultimoUpdate | date:'medium' }}</td>
+            <td>{{ elemento.ocurrencias }}</td>
+          </tr>
+        </tbody>
+      </table>
+      <hr>
+      <h5>Elementos Flotantes inaccesibles en formularios web
+        <button class="btn btn-info mr-3" (click)="changeHideFormMessagesTable(table1)">
+                Mostrar Elementos <i class="fas fa-angle-down"></i>
+        </button>
+    </h5>
+</div>
+<hr>
+

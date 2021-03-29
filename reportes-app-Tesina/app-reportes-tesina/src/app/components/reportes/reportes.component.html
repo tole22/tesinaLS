@@ -1,0 +1,30 @@
+<div class="container">
+    <h2 class="text-center">Reportes</h2>
+<form>
+    <div class="form-group form-inline">
+        Búsqueda: 
+        <i class="fas fa-search ml-2"></i>
+        <input class="form-control ml-2" type="text" [formControl]="filter"/>
+    </div>
+</form>
+<table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Sitio Web</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let pageStructure of pageStructures$ | async">
+        <td><ngb-highlight [result]="pageStructure.baseURI" [term]="filter.value"></ngb-highlight></td>
+        <td>
+          <button class="btn btn-info mr-3" [routerLink]="['/estructura-pagina', pageStructure.baseURI]">Reporte Elementos interactivos</button>
+          <button class="btn btn-info mr-3" [routerLink]="['/bad-smell-report', pageStructure.baseURI]">Reporte Bad Smells</button>
+          <button class="btn btn-danger" (click)="deleteStructure(pageStructure._id)">
+            <i class="far fa-trash-alt"></i>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

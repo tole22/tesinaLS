@@ -1,0 +1,9 @@
+.bar{
+    display: flex;
+}
+.navbar-nav {
+    display: contents;
+}
+.nav-item {
+    margin-right: 10px;
+}

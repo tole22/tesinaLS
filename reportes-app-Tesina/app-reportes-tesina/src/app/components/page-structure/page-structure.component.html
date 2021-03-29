@@ -1,0 +1,53 @@
+<div class="container" *ngIf="!loading">
+    <h5>Sitio: {{ pageStructure.baseURI }}</h5>
+<hr>
+    <h5>Listado de elementos accesibles
+        <a (click)="hideVisitados = !hideVisitados">Show
+            <i class="fas fa-angle-down"></i>
+        </a>
+    </h5>
+    <table class="table" [hidden]="hideVisitados">
+        <thead>
+          <tr>
+            <th scope="col">Identificador</th>
+            <th scope="col">Cantidad interacciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let elemento of pageStructure.elementos_visitados; let i = index">
+            <th scope="row">{{ elemento.identificador }}</th>
+            <td>{{ elemento.contador }}</td>
+          </tr>
+        </tbody>
+      </table>
+      <hr>
+      <h5>Listado de elementos interactivos de la pagina web
+        <a (click)="hideInteractivos = !hideInteractivos">Show
+            <i class="fas fa-angle-down"></i>
+        </a>
+    </h5>
+    <table class="table" [hidden]="hideInteractivos">
+        <thead>
+          <tr>
+            <th scope="col">Nombre del tipo</th>
+            <th scope="col">Elementos</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let elemInterac of pageStructure.elementos_interactivos">
+            <td>{{ elemInterac.name }}</td>
+            <td>
+                <div *ngFor="let elem of elemInterac.elements">
+                    <p>
+                        Text: {{ elem.text }} | TagName: {{ elem.tagName }} | Codigo HTML: {{ elem.outerHTML }}
+                        <i *ngIf="!accesible(elem.outerHTML)" class="fas fa-universal-access text-danger">No accedido</i>
+                    </p>
+                </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+</div>
+
+
+
