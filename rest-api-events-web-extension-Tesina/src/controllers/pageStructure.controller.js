@@ -2,6 +2,9 @@ const pageStructureCtrl = {};
 
 // Model
 const PageStructure = require("../models/PageStructure");
+const BadSmellEvent = require("../models/BadSmellEvent");
+const Event = require("../models/Event");
+const ReportedPage = require("../models/ReportedPage");
 
 const FileManager = require('../utils/fileManager');
 const fileManager = new FileManager();
@@ -47,7 +50,26 @@ pageStructureCtrl.deleteStructure = async(req, res) => {
     res.json({status: 'Estructura Eliminada'})
 };
 
+// Eliminar todos los eventos de una pagina/estructura
+pageStructureCtrl.deleteStructureEvents = async (req, res) => {
+    const { baseURI } = req.body;
+    const eliminarBSEvents = await BadSmellEvent.deleteMany({ baseURI: baseURI });
+    const eliminarEvents = await Event.deleteMany({ baseURI: baseURI });
 
+    // Busco la reportPage
+    await ReportedPage.findOne({ baseURI: baseURI }).then(reportedPage => {
+        if (reportedPage.reported_elements) reportedPage.reported_elements = [];
+        reportedPage.save();
+    }).catch(err => {
+        console.log('Error, no se pudo hacer el update', err);
+    });
+
+    let msg = "Se eliminaron: " +
+        eliminarBSEvents.deletedCount +
+        " Bad Smell Events y " +
+        eliminarEvents + " Eventos";
+    res.json({ status: msg })
+};
 
 // Data from files
 pageStructureCtrl.getStructuresFromFile = async(req, res) => {

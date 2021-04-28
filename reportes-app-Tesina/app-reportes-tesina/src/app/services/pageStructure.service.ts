@@ -23,4 +23,8 @@ export class PageStructureService {
   deleteStructure(_id : string) {
     return this.http.delete(`${this.URL_API}/${_id}`);
   }
+
+  deleteStructureEvents(url : string) {
+    return this.http.post(`${this.URL_API}/deleteEvents`, {'baseURI' : url});
+  }
 }

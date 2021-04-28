@@ -5,3 +5,5 @@
 
 const API_URL = 'http://localhost:8080/api';
 
+const SAVE_NEW_BS_EVENT_URL = '/badSmellReport/saveNewBadSmellEvent';
+

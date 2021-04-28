@@ -43,8 +43,19 @@ export class ReportesComponent implements OnInit {
   }
 
   deleteStructure(id: string) {
-    if (confirm('are you sure you want to delete it?')) {
+    if (confirm('Seguro de eliminar la estructura?')) {
       this.pageStructureService.deleteStructure(id).subscribe(
+        (res) => {
+          this.getPageStructures();
+        },
+        (err) => console.log(err)
+      );
+    }
+  }
+
+  deleteStructureEvents(url: string) {
+    if (confirm('Seguro de eliminar todos los eventos?')) {
+      this.pageStructureService.deleteStructureEvents(url).subscribe(
         (res) => {
           this.getPageStructures();
         },

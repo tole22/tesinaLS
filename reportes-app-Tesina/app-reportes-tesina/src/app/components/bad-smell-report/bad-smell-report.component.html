@@ -21,12 +21,13 @@
     <h5>Fecha de Creacion:</h5><p>{{ reportedPage.fechaCreacion | date:'medium' }}</p>
 
     <h4 class="text-center">Listado de elementos inaccesibles segun el Bad Smell</h4>
-    <h5>Mensajes inaccesibles en formularios web
-        <button class="btn btn-info mr-3" (click)="changeHideFormMessagesTable(table1)">
-                Mostrar Elementos <i class="fas fa-angle-down"></i>
-        </button>
-    </h5>
-    <table #table1 class="table" [hidden]="hideFormMessagesTable">
+
+    <h5>Mensajes inaccesibles en formularios web</h5>
+    <button class="btn btn-info mr-3" (click)="changeHideFormMessagesTable(table1)">
+      Mostrar Elementos <i class="fas fa-angle-down"></i>
+    </button>
+    <h4 [hidden]="hideFormMessagesTable" *ngIf="formMessagesElements?.length < 1">No hay elementos detectados</h4>
+    <table #table1 class="table" [hidden]="hideFormMessagesTable" *ngIf="formMessagesElements?.length > 0">
         <thead>
           <tr>
             <th scope="col">Identificador</th>
@@ -44,12 +45,45 @@
           </tr>
         </tbody>
       </table>
+      
       <hr>
-      <h5>Elementos Flotantes inaccesibles en formularios web
-        <button class="btn btn-info mr-3" (click)="changeHideFormMessagesTable(table1)">
-                Mostrar Elementos <i class="fas fa-angle-down"></i>
-        </button>
-    </h5>
+
+      <h5>Elementos Flotantes web inaccesibles</h5>
+      <button class="btn btn-info mr-3" (click)="changeHideFloatElementsTable(table2)">
+        Mostrar Elementos <i class="fas fa-angle-down"></i>
+      </button>
+      <h4 [hidden]="hideFloatElementsTable" *ngIf="floatElements?.length < 1">No hay elementos detectados</h4>
+      <table #table2 class="table" [hidden]="hideFloatElementsTable" *ngIf="floatElements?.length > 0">
+        <thead>
+          <tr>
+            <th scope="col">Identificador</th>
+            <th scope="col">Tipo Elemento</th>
+            <th scope="col">Último Update</th>
+            <th scope="col">Ocurrencias</th>
+            <th scope="col">Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let elemento of floatElements; let i = index">
+            <th scope="row">
+              {{ (elemento.outerHTML.length>70)? (elemento.outerHTML | slice:0:70)+'..':(elemento.outerHTML) }}
+            </th>
+            <td>{{ elemento.tagName }}</td>
+            <td>{{ elemento.ultimoUpdate | date:'medium' }}</td>
+            <td>{{ elemento.ocurrencias }}</td>
+            <td>
+              <app-modal modal_title="Información del elemento" open_modal_btn="Ver Más info">
+                <h6>Codigo HTML:</h6><p>{{ elemento.outerHTML }}</p>
+                <h6>Tipo elemento:</h6><p>{{ elemento.tagName }}</p>
+                <h6>Ultima vez modificado:</h6><p>{{ elemento.ultimoUpdate }}</p>
+                <h6>Número de ocurrencias:</h6><p>{{ elemento.ocurrencias }}</p>
+                <h6>Tipo de bad smell:</h6><p>{{ elemento.bad_smell_type }}</p>
+              </app-modal>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <hr>
 </div>
-<hr>
+
 

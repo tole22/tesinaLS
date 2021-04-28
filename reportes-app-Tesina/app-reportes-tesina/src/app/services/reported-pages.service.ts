@@ -20,9 +20,4 @@ export class ReportedPagesService {
     getReportedPage(uri : string) {
       return this.http.post<ReportedPage>(this.URL_API+'/getReportedPage', {'baseURI' : uri});
     }
-
-    // deleteStructure(_id : string) {
-    //   return this.http.delete(`${this.URL_API}/${_id}`);
-    // }
-
 }

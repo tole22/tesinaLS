@@ -13,6 +13,7 @@ import { DecimalPipe } from '@angular/common';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { InaccessibleElementsComponent } from './components/inaccessible-elements/inaccessible-elements.component';
 import { BadSmellReportComponent } from './components/bad-smell-report/bad-smell-report.component';
+import { ModalComponent } from './common-components/modal/modal.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { BadSmellReportComponent } from './components/bad-smell-report/bad-smell
     PageNotFoundComponent,
     PageStructureComponent,
     InaccessibleElementsComponent,
-    BadSmellReportComponent
+    BadSmellReportComponent,
+    ModalComponent
   ],
   imports: [
     BrowserModule,

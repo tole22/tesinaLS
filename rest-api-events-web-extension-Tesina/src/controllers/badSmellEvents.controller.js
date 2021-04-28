@@ -31,7 +31,7 @@ badSmellEventsCtrl.saveBadSmellEvent = async (req, res) => {
         'ultimoUpdate': fechaCreacion
     };
 
-    // Si el reportedPage para esta URL no existe creo una nueva
+    // Si el reportedPage para esta URL no existe creo una nueva junto al elemento
     if(reportedPage.length === 0) {
         const reported_elements = [ element ];
         const newReportedPage = new ReportedPage({ 

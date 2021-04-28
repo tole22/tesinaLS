@@ -45,8 +45,30 @@ const body_links = document.querySelectorAll('body a');
 */
 var div_body = document.querySelectorAll('body div');
 
+function getBodyDiv() {
+	return document.querySelectorAll('body div');
+}
+
+function getElementosFLotantes() {
+	return document.querySelectorAll('body div, nav, section');
+}
+
+
+/** 
+ * Body
+ * @type {any} 
+*/
+var body_element = document.body;
 
 /***********************Funciones********************************/
 function getBaseURI() {
 	return document.baseURI;
+}
+
+/***********************Funciones Deteccion Elementos Flotantes********************************/
+function esElementoFlotante(zIndex, position) {
+	return (zIndex > 1) && (position === 'fixed');
+}
+function existeElementoDinamico(array, id) {
+    return array.find(elem => elem.id === id);
 }

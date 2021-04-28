@@ -4,14 +4,16 @@
  * @author Maximiliano Jonathan Toledo.
  */
 
-body_btns.forEach(function (btn) {
-	btn.addEventListener('focus', () => { action_on_focus(btn); });
-});
-
-
-body_links.forEach(function (link) {
-	link.addEventListener('focus', () => { action_on_focus(link); });
-});
+function setEventListeners() {
+	body_btns.forEach(function (btn) {
+		btn.addEventListener('focus', () => { action_on_focus(btn); });
+	});
+	
+	
+	body_links.forEach(function (link) {
+		link.addEventListener('focus', () => { action_on_focus(link); });
+	});
+}
 // hay links que no tienen texto, pueden ser una imagen, y en ciertos casos no tienen ni un atributo alt, por ende el screen reader no dice nada
 
 
@@ -111,7 +113,7 @@ function createLinkJson(domElem) {
 
 
 // Logs
-console.log(body_links);
-console.log(body_btns);
-console.log(links_elems);
-console.log(web_elements);
+// console.log(body_links);
+// console.log(body_btns);
+// console.log(links_elems);
+// console.log(web_elements);

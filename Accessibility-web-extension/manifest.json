@@ -22,8 +22,12 @@
           "src/detection-tools/controllers/events.controller.js",
           "src/detection-tools/controllers/page-structure.controller.js",
           "src/detection-tools/controllers/bad_smell_report.controller.js",
+          "src/detection-tools/controllers/api_comunication.controller.js",
           "src/detection-tools/check-accessible-elements/handlers-asignation.js",
           "src/detection-tools/form-messages/form_messages.js",
+          "src/detection-tools/pop-ups/deteccion_dinamica.js",
+          "src/detection-tools/pop-ups/deteccion_estatica.js",
+          "src/detection-tools/pop-ups/deteccion_de_elementos.js",
           "src/content-script.js"
         ]
       }

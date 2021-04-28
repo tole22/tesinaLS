@@ -1,23 +1,24 @@
-console.log(formElements);
 
-var mutationObserver = new MutationObserver(function(mutations) {
-    mutations.forEach(function(mutation) {
-      check_issues(mutation);
+function startFormMessagesTool() {
+    console.log(formElements);
+
+    var mutationObserver = new MutationObserver(function (mutations) {
+        mutations.forEach(function (mutation) {
+            check_issues(mutation);
+        });
     });
-  });
-// Asigno un observable a cada Formulario en la pagina
-// observo cambios en el DOM de cada form  
-formElements.forEach(function (form) {
-    mutationObserver.observe(form, {
-        childList: true,
-        subtree: true
-      });
-});
+    // Asigno un observable a cada Formulario en la pagina
+    // observo cambios en el DOM de cada form  
+    formElements.forEach(function (form) {
+        mutationObserver.observe(form, {
+            childList: true,
+            subtree: true
+        });
+    });
+}
 
 // busco si el elemento es un mensaje desplegado al usuario y si es accesible
 function check_issues(mutationRecord) {
-    console.log(mutationRecord);
-    //console.log(mutationRecord.target.tagName);
     if(mutationRecord.target) {
         if(isErrorMsgElement(mutationRecord.target)){
             isAccesible(mutationRecord.target);
@@ -48,8 +49,6 @@ function isAccesible(element) {
     }
     
     if(!cumple) {
-        console.log('El mensaje no es accesible: ', element.textContent);
-        
         /**
          * Event Object que voy a mandar al server
          * @typedef {Object} Event
@@ -70,8 +69,6 @@ function isAccesible(element) {
                 'outerHTML': element.outerHTML
             };
         }
-        
-        console.log(JSON.stringify(event));
         save_bad_smell_event(event);
         }
 }

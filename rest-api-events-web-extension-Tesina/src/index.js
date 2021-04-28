@@ -20,6 +20,7 @@ app.use(cors({
     allowedHeaders: 'Content-Type, Authorization, Origin, X-Requested-With, Accept'
   }));
 
+
 // Routes
 app.use('/api/structures', require('./routes/pageStructure.routes'));
 app.use('/api/events', require('./routes/events.routes'));

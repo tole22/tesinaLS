@@ -14,7 +14,9 @@ export class BadSmellReportComponent implements OnInit {
   loading: Boolean = true;
   reportedPage: ReportedPage;
   hideFormMessagesTable : Boolean = true;
+  hideFloatElementsTable : Boolean = true;
   formMessagesElements = [];
+  floatElements = [];
 
   constructor(
       private route: ActivatedRoute,
@@ -35,6 +37,10 @@ export class BadSmellReportComponent implements OnInit {
         this.formMessagesElements = res.reported_elements.filter(function(elem) {
           return elem.bad_smell_type === 'FORM_MESSAGE';
         });
+
+        this.floatElements = res.reported_elements.filter(function(elem) {
+          return elem.bad_smell_type === 'FLOAT_ELEMENT';
+        });
       },
       (err) => console.log(err)
     );
@@ -45,11 +51,25 @@ export class BadSmellReportComponent implements OnInit {
   }
 
   changeHideFormMessagesTable(element: any) {
+
     this.hideFormMessagesTable = !this.hideFormMessagesTable;
-    if(!this.hideFormMessagesTable) {
-      setTimeout(() =>
-        element.scrollIntoView({behavior: 'smooth', block: 'start', inline: 'nearest'}), 0);
+    if (!this.hideFormMessagesTable) {
+      setTimeout(() => {
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' });
+        }
+      }, 0);
     }
   }
+  changeHideFloatElementsTable(element: any) {
 
+    this.hideFloatElementsTable = !this.hideFloatElementsTable;
+    if (!this.hideFloatElementsTable) {
+      setTimeout(() => {
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' });
+        }
+      }, 0);
+    }
+  }
 }
