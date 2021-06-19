@@ -69,7 +69,7 @@ function isFloatDivAccesible(element, reportedElements) {
   });
 
   if (!cumple) {
-    console.log('El elemento flotante no es accesible: ', element.id);
+    console.log(`El elemento flotante no es accesible, id: ${element.id}, class:  ${element.class}, content: ${element.textContent.trim()}`);
 
     /**
      * Event Object que voy a mandar al server

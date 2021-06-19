@@ -16,14 +16,18 @@
     </thead>
     <tbody>
       <tr *ngFor="let pageStructure of pageStructures$ | async">
-        <td><ngb-highlight [result]="pageStructure.baseURI" [term]="filter.value"></ngb-highlight></td>
-        <td>
-          <button class="btn btn-info mr-3 boton-tabla" [routerLink]="['/estructura-pagina', pageStructure.baseURI]">Reporte Elementos interactivos</button>
-          <button class="btn btn-info mr-3 boton-tabla" [routerLink]="['/bad-smell-report', pageStructure.baseURI]">Reporte Bad Smells</button>
-          <button class="btn btn-danger mr-3 boton-tabla" (click)="deleteStructure(pageStructure._id)">
+        <td><ngb-highlight [result]="pageStructure.baseURI | slice:0:60" [term]="filter.value"></ngb-highlight></td>
+        <td class="d-flex">
+          <button class="btn btn-info mr-3 boton-tabla" [routerLink]="['/estructura-pagina', pageStructure.baseURI]"
+          title="Obtener el reporte de los elementos interactivos de la pagina">Reporte Elementos interactivos</button>
+          <button class="btn btn-info mr-3 boton-tabla" [routerLink]="['/bad-smell-report', pageStructure.baseURI]"
+          title="Obtener el reporte de bad smells de la pagina">Reporte Bad Smells</button>
+          <button class="btn btn-danger mr-3 boton-tabla" (click)="deleteStructure(pageStructure._id)"
+          title="Eliminar la estructura de la pagina">
             <i class="far fa-trash-alt"></i>
           </button>
-          <button class="btn btn-danger boton-tabla" (click)="deleteStructureEvents(pageStructure.baseURI)">
+          <button class="btn btn-danger boton-tabla" (click)="deleteStructureEvents(pageStructure.baseURI)"
+          title="Eliminar los eventos de la pagina">
             Eliminar Eventos
           </button>
         </td>

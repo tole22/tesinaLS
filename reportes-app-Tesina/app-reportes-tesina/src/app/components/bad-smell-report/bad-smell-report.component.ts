@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ReportedPage } from 'src/app/models/reportedPages.model';
 import { ReportedPagesService } from 'src/app/services/reported-pages.service';
+import { jsPDF } from 'jspdf';
+import html2canvas from 'html2canvas';
 
 @Component({
   selector: 'app-bad-smell-report',
@@ -71,5 +73,25 @@ export class BadSmellReportComponent implements OnInit {
         }
       }, 0);
     }
+  }
+
+  downloadPDF() {
+    this.hideFloatElementsTable = false;
+    this.hideFormMessagesTable = false;
+    var element = document.getElementById('report');
+    const { hostname } = new URL(this.uri);
+    const pdfName = 'Reporte de accesibility smells para '+ hostname +'.pdf';
+
+    setTimeout(() => {
+      html2canvas(element).then((canvas) => {
+        var imgData = canvas.toDataURL('image/png');
+        var doc = new jsPDF();
+        
+        var imgHeight = canvas.height * 208 / canvas.width;
+  
+        doc.addImage(imgData, 0, 0 ,208, imgHeight);
+        doc.save(pdfName);
+      });
+    });
   }
 }

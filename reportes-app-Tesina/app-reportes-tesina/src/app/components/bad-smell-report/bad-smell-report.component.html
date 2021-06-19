@@ -1,4 +1,11 @@
 <h2>{{ uri }}</h2>
+<div class="container content">
+  <button class="btn btn-success btn-pdf"
+  (click)="downloadPDF()">
+  Descargar reporte como PDF
+</button>
+</div>
+
 <hr>
 <h3>Ver todos los eventos por tipo de smell</h3>
 <p>al seleccionar se monstraran todos los eventos registrados</p>
@@ -13,9 +20,11 @@
         Elementos flotantes inaccesibles
 </button>
 <hr>
+<div id="report">
+
 
 <h3>Elementos de la pagina con bad smells de accesibilidad</h3>
-<div class="container" *ngIf="!loading">
+<div  class="container" *ngIf="!loading">
     <h5>Sitio:</h5><p>{{ reportedPage.baseURI }}</p>
     <h5>Último update:</h5><p>{{ reportedPage.ultimoUpdate | date:'medium' }}</p>
     <h5>Fecha de Creacion:</h5><p>{{ reportedPage.fechaCreacion | date:'medium' }}</p>
@@ -30,6 +39,7 @@
     <table #table1 class="table" [hidden]="hideFormMessagesTable" *ngIf="formMessagesElements?.length > 0">
         <thead>
           <tr>
+            <th scope="col">#</th>
             <th scope="col">Identificador</th>
             <th scope="col">Tipo Elemento</th>
             <th scope="col">Último Update</th>
@@ -37,7 +47,8 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let elemento of formMessagesElements; let i = index">
+          <tr *ngFor="let elemento of formMessagesElements; let indexForms = index">
+            <td>{{ indexForms+1 }}</td>
             <th scope="row">{{ elemento.outerHTML }}</th>
             <td>{{ elemento.tagName }}</td>
             <td>{{ elemento.ultimoUpdate | date:'medium' }}</td>
@@ -56,6 +67,7 @@
       <table #table2 class="table" [hidden]="hideFloatElementsTable" *ngIf="floatElements?.length > 0">
         <thead>
           <tr>
+            <th scope="col">#</th>
             <th scope="col">Identificador</th>
             <th scope="col">Tipo Elemento</th>
             <th scope="col">Último Update</th>
@@ -64,7 +76,8 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let elemento of floatElements; let i = index">
+          <tr *ngFor="let elemento of floatElements; let indexFloat = index">
+            <td>{{ indexFloat+1 }}</td>
             <th scope="row">
               {{ (elemento.outerHTML.length>70)? (elemento.outerHTML | slice:0:70)+'..':(elemento.outerHTML) }}
             </th>
@@ -85,5 +98,4 @@
       </table>
       <hr>
 </div>
-
-
+</div>

@@ -1,88 +1,9 @@
-// // /////////////////// observables
-
-// function chequearElementoDinamico(array, target) {
-//     let display = window.getComputedStyle(target).getPropertyValue('display');
-//     let objIndex;
-
-//     if (target.id !== '') {
-//         if (array.length === 0) {
-//             addElementDinamico(array, target.id, display);
-//         } else if (array.length > 0) {
-//             if (existeElementoDinamico(array, target.id)) {
-//                 objIndex = array.findIndex((obj => obj.id === target.id));
-//                 if (array[objIndex].count >= 1) {
-//                     if (array[objIndex].styleDisplay.indexOf(display) === -1) {
-//                         array[objIndex].styleDisplay = array[objIndex].styleDisplay.concat(display);
-//                         array[objIndex].count++;
-//                         // si tengo mas de un cambio de display, y entre ellos esta el none, significa que es un modal que se oculta y se muestra
-//                         console.log('Voy a reportar el modal con el id: ', target.id);
-//                     }
-//                 }
-//             } else {
-//                 addElementDinamico(array, target.id, display);
-//             }
-//         }
-//     }
-//     console.log(array);
-// }
-
-// function addElementDinamico(array, id, display) {
-//     array.push({
-//         "id": id,
-//         "styleDisplay": display,
-//         "count": 1
-//     });
-// }
-
-// function setBodyObservables() {
-
-//     let elementos_dinamicos = [];
-
-//     let mutObserver = new MutationObserver(function (mutations) {
-//         mutations.forEach(function (mutation) {
-//             if (mutation.type === 'attributes') {
-//                 check_div_element(elementos_dinamicos, mutation);
-//             }
-//         });
-//     });
-//     // observo cambios en el DOM del body 
-//     mutObserver.observe(body_element, {
-//         attributes: true,
-//         attributeFilter: ['style'],
-//         childList: true,
-//         subtree: true
-//     });
-// }
-
-// function check_div_element(array, mutationRecord) {
-//     if (mutationRecord.target) {
-//         if (mutationRecord.target.localName === 'div' ||
-//             mutationRecord.target.localName === 'nav') {
-//             let zIndex = window.getComputedStyle(mutationRecord.target).getPropertyValue('z-index');
-//             let position = window.getComputedStyle(mutationRecord.target).getPropertyValue('position');
-//             if (esElementoFlotante(zIndex, position)) {
-//                 chequearElementoDinamico(array, mutationRecord.target);
-//             } else if (elPadreEsElementoFlotante(mutationRecord.target.parentElement)) {
-//                 chequearElementoDinamico(array, mutationRecord.target);
-//             }
-
-//         }
-//     }
-// }
-
-// function elPadreEsElementoFlotante(parent) {
-//     if (parent) {
-//         let zIndexParent = window.getComputedStyle(parent).getPropertyValue('z-index');
-//         let positionParent = window.getComputedStyle(parent).getPropertyValue('position');
-//         return esElementoFlotante(zIndexParent, positionParent);
-//     }
-//     return false;
-// }
 
 // Funcion principal
 function floatElementsDynamicDetection(reportedElements) {
+    console.log('Elementos ocultos:', obtenerElementosOcultos());
     window.addEventListener('load', (event) => {
-        console.log('Elemtnso ocultos:', obtenerElementosOcultos());
+        console.log('Elementos ocultos:', obtenerElementosOcultos());
         const hiddenFloatElements = obtenerElementosOcultos();
         setFloatElementsObservables(reportedElements, hiddenFloatElements);
     });

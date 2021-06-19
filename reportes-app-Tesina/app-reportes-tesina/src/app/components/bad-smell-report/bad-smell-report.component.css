@@ -1,0 +1,8 @@
+.btn-pdf {
+    float: inline-end;
+    font-size: small;
+}
+
+.content {
+    content-visibility: auto;
+}
