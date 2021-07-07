@@ -1,0 +1,13 @@
+.container .btn-accesibles {
+ float: right;
+ font-size: 0.95rem;
+}
+span.badge {
+    font-size: 15px;
+}
+.btn-interactivos {
+    font-size: 0.80rem;  
+}
+.btn-interactivos span.badge {
+    font-size: 12px;
+}

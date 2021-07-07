@@ -14,6 +14,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { InaccessibleElementsComponent } from './components/inaccessible-elements/inaccessible-elements.component';
 import { BadSmellReportComponent } from './components/bad-smell-report/bad-smell-report.component';
 import { ModalComponent } from './common-components/modal/modal.component';
+import { DefaultPipe } from './common-components/pipes/default.pipe';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { ModalComponent } from './common-components/modal/modal.component';
     PageStructureComponent,
     InaccessibleElementsComponent,
     BadSmellReportComponent,
-    ModalComponent
+    ModalComponent,
+    DefaultPipe
   ],
   imports: [
     BrowserModule,
