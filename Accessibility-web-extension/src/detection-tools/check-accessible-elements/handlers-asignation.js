@@ -1,10 +1,12 @@
 /**
  * @file Asignacion de Handlers a los elementos de la pagina web.
+ * En este script se buscan los elementos que reciben interaccion por parte del usuario
  * @see Documentacion util sobre document.querySelectorAll {@link https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelectorAll}.
  * @author Maximiliano Jonathan Toledo.
  */
 
 function setEventListeners() {
+	console.log('En ejecución: Finder de elementos interactivos inaccesibles con handlers JS asignados');
 	body_btns.forEach(function (btn) {
 		btn.addEventListener('focus', () => { action_on_focus(btn); });
 	});
@@ -61,7 +63,7 @@ function action_on_focus(elem) {
 // Convertir el NodeList de elementos links a un array
 var body_links_array = Array.from(body_links);
 
-// Elimino los links basura que no tienen texo. 
+// Elimino los links basura que no tienen texto. 
 body_links_array = body_links_array.filter(item => !(item.text == '')); // ver si los links con imagenes sirven ser escuchados
 
 

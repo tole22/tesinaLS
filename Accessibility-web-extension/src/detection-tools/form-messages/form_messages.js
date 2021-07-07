@@ -1,6 +1,6 @@
 
 function startFormMessagesTool() {
-    console.log(formElements);
+    console.log('En ejecución: Finder de mensajes de errores inaccesibles en formularios');
 
     var mutationObserver = new MutationObserver(function (mutations) {
         mutations.forEach(function (mutation) {

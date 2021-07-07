@@ -24,3 +24,23 @@ function save_structure(structure) {
         console.log(content);
       })();
 }
+
+ /**
+  * @description Save all page elements with a handler JS assigned
+  * @param {Object} elements 
+  */
+  function save_elements_with_handlerJS(data) {
+    (async () => {
+        const rawResponse = await fetch(API_URL+'/structures/saveElementsWithHandler', {
+          method: 'POST',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(data)
+        });
+        const content = await rawResponse.text();
+      
+        console.log(content);
+      })();
+}

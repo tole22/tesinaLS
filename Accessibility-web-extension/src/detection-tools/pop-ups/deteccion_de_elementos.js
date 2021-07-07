@@ -9,9 +9,12 @@
 // Arreglo que contiene los elementos ya reprtados por el usuario
 var elementosReportados = [];
 
-// Detecciones estaticas
-onLoadCompleteDetection(elementosReportados); // Deteccion cuando cargan todos los componentes de la pagina
-fiveSecondsDetection(elementosReportados); // Deteccion a los 5 segundos de carga de la pagina
+function deteccion_de_elementos_flotantes() {
+	console.log('En ejecución: Finder de elementos flotantes inaccesibles');
+    // Detecciones estaticas
+    onLoadCompleteDetection(elementosReportados); // Deteccion cuando cargan todos los componentes de la pagina
+    fiveSecondsDetection(elementosReportados); // Deteccion a los 5 segundos de carga de la pagina
 
-// Detecciones dinamicas
-floatElementsDynamicDetection(elementosReportados);
+    // Detecciones dinamicas
+    floatElementsDynamicDetection(elementosReportados);
+}
