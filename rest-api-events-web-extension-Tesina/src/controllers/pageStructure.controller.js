@@ -28,7 +28,6 @@ pageStructureCtrl.saveNewStructure = async (req, res) => {
 
     const estructura = await PageStructure.find({ baseURI: baseURI });
 
-    console.log(JSON.stringify(elementos_interactivos));
     if(estructura.length === 0) {
         const newStructure = new PageStructure({ baseURI, elementos_interactivos, empty_array, fechaCreacion });
         await newStructure.save();
@@ -70,6 +69,31 @@ pageStructureCtrl.deleteStructureEvents = async (req, res) => {
         eliminarEvents + " Eventos";
     res.json({ status: msg })
 };
+
+// Elementos de la pagina que poseen Handlers JS asignados
+pageStructureCtrl.saveElementsWithHandler = async (req, res) => {
+    const { baseURI, elements, cant_elements } = req.body;
+
+    try {
+        // Registro la visita al elemento en la estructura de paginas
+        await PageStructure.findOne({ baseURI: baseURI }).then(estructura => {
+
+            // Actualizo el listado de elementos si el tamaño cambio
+            if (estructura.elementos_con_handler.length !== cant_elements) {
+                estructura.elementos_con_handler = elements;
+                estructura.save();
+                return res.send('Se actualizaron los elementos con handlers!');
+            }
+        }).catch(err => {
+            console.log('Error, no se pudo hacer el update de elementos con handlers', err);
+        });
+        return res.send('No se actualizaron los elementos con handlers!');
+
+    } catch (error) {
+        console.log('Error, no se pudo hacer el update de elementos con handlers', error);
+    }
+};
+
 
 // Data from files
 pageStructureCtrl.getStructuresFromFile = async(req, res) => {
