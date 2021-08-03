@@ -1,153 +1,155 @@
 <div class="container" *ngIf="!loading">
   <h5>Sitio: {{ pageStructure.baseURI }}</h5>
-
+  <div class="container content">
+    <button class="btn btn-success btn-pdf"
+    (click)="downloadPDF()">
+    Descargar reporte como PDF
+  </button>
+  </div>
   <hr>
+  <div id="report">
+    <h5>
+      <span>Listado de elementos accesibles </span>
+      <a (click)="hideVisitados = !hideVisitados"> - Show
+        <i class="fas fa-angle-down"></i>
+      </a>
+      <button type="button" class="btn btn-primary btn-accesibles" [ngbTooltip]="tableTipContentAccesibles"
+        placement="bottom" (click)="hideVisitados = !hideVisitados">
+        Cantidad <span class="badge badge-light">{{ pageStructure.elementos_visitados.length}}</span>
+      </button>
+    </h5>
+    <table class="table" [hidden]="hideVisitados">
+      <thead>
+        <tr>
+          <th scope="col">Identificador</th>
+          <th scope="col">Cantidad interacciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let elemento of pageStructure.elementos_visitados; let i = index">
+          <th scope="row">{{ elemento.identificador }}</th>
+          <td>{{ elemento.contador }}</td>
+        </tr>
+      </tbody>
+    </table>
 
-  <h5>
-    <span>Listado de elementos accesibles </span>
-    <a (click)="hideVisitados = !hideVisitados"> - Show
-      <i class="fas fa-angle-down"></i>
-    </a>
-    <button type="button" class="btn btn-primary btn-accesibles" [ngbTooltip]="tableTipContentAccesibles"
-      placement="bottom" (click)="hideVisitados = !hideVisitados">
-      Cantidad <span class="badge badge-light">{{ pageStructure.elementos_visitados.length}}</span>
-    </button>
-  </h5>
-  <table class="table" [hidden]="hideVisitados">
-    <thead>
-      <tr>
-        <th scope="col">Identificador</th>
-        <th scope="col">Cantidad interacciones</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let elemento of pageStructure.elementos_visitados; let i = index">
-        <th scope="row">{{ elemento.identificador }}</th>
-        <td>{{ elemento.contador }}</td>
-      </tr>
-    </tbody>
-  </table>
+    <hr>
 
-  <hr>
-
-  <h5>
-    <span>Listado de elementos con Handlers JS </span>
-    <a (click)="hideWithHandler = !hideWithHandler"> - Show
-      <i class="fas fa-angle-down"></i>
-    </a>
-    <button type="button" class="btn btn-success btn-accesibles" [ngbTooltip]="tableTipContentWithHandler"
-      placement="bottom" (click)="hideWithHandler = !hideWithHandler">
-      Cantidad <span class="badge badge-light">{{ pageStructure.elementos_con_handler.length}}</span>
-    </button>
-  </h5>
-  <table class="table" [hidden]="hideWithHandler">
-    <thead>
-      <tr>
-        <th scope="col">Elemento</th>
-        <th scope="col">ID</th>
-        <th scope="col">Clases</th>
-        <th scope="col">Evento</th>
-        <th scope="col">Comentarios</th>
-        <th scope="col">Información</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let elemConHandler of pageStructure.elementos_con_handler">
-        <td>
-          {{ elemConHandler.tagName }}
-        </td>
-        <td>
-          {{ elemConHandler.id_elem  || 'n/a'}}
-        </td>
-        <td>
-          {{ elemConHandler.className || 'n/a' }}
-        </td>
-        <td>
-          {{ elemConHandler.type }}
-        </td>
-        <!-- <td [ngClass]="{'bg-success': chequeoAccesibilidad(elemConHandler).accesible, 'bg-danger': !chequeoAccesibilidad(elemConHandler).accesible}">
-          <div [innerHTML]="chequeoAccesibilidad(elemConHandler).mensaje"></div>
-        </td> -->
-        <td [ngClass]="{'bg-success': elemConHandler.isAccesible, 'bg-danger': !elemConHandler.isAccesible}">
-          <div [innerHTML]="elemConHandler.message"></div>
-        </td>
-        <td>
-          <app-modal modal_title="Información del elemento" open_modal_btn="Ver Más info">
-            <h6>ID:</h6><p *ngIf="elemConHandler.id_elem; else idElemn">{{ elemConHandler.id_elem }}</p><ng-template #idElemn><p>n/a</p></ng-template>
-            <h6>Clases:</h6><p>{{ elemConHandler.className }}</p>
-            <h6>Tipo de elemento:</h6><p>{{ elemConHandler.tagName }}</p>
-            <h6>Código HTML:</h6><p>{{ elemConHandler.outerHTML }} <span class="font-weight-bold" *ngIf="elemConHandler.outerHTML.length >=19">...</span></p>
-            <h6>Tipo de Handler JS:</h6><p>{{ elemConHandler.type }}</p>
-            <h6>Código JS del handler:</h6><p>{{ elemConHandler.func }}</p>
-            <hr>
-            <h6 class="font-weight-bold">Atributos</h6>
-            <div>
-              <h6 *ngIf="elemConHandler.tagName === 'A'">Href</h6><p *ngIf="elemConHandler.href; else hrefElemn">{{ elemConHandler.href }}</p><ng-template #hrefElemn><p>n/a</p></ng-template>
-            </div>
-            <h6>tabindex:</h6><p *ngIf="elemConHandler.accessibility_attrib.tabindex; else idtabindex">{{ elemConHandler.accessibility_attrib.tabindex }}</p>
-              <ng-template #idtabindex><p>n/a</p></ng-template>
-            <h6>aria_label:</h6><p *ngIf="elemConHandler.accessibility_attrib.aria_label; else ariaLabelElem">{{ elemConHandler.accessibility_attrib.aria_label }}</p>
-              <ng-template #ariaLabelElem><p>n/a</p></ng-template>
-            <h6>role:</h6><p *ngIf="elemConHandler.accessibility_attrib.role; else roleElem">{{ elemConHandler.accessibility_attrib.role }}</p>
-              <ng-template #roleElem><p>n/a</p></ng-template>
-            <hr>
-            <h6 class="font-weight-bold">Elementos Hijos</h6>
-            <div *ngFor="let child of elemConHandler.children; let i = index">
-              <h6>Hijo #{{ i+1 }}</h6>
-              <h6 *ngIf="child.tagName === 'text'">Es solo texto</h6>
-              <div *ngIf="child.tagName !== 'text'">
-                <h6>Tipo de elemento:</h6><p>{{ child.tagName | default: 'No tiene.'}}</p>
-                <h6>Href:</h6><p>{{ child.href | default: 'No tiene.'}}</p>
-                <h6>Tabindex:</h6><p>{{ child.tabindex | default: 'No tiene.'}}</p>
-                <h6>Aria Label:</h6><p>{{ child.aria_label | default: 'No tiene.'}}</p>
-                <h6>Rol:</h6><p>{{ child.role | default: 'No tiene.'}}</p>
-              </div>
+    <h5>
+      <span>Listado de elementos con Handlers JS </span>
+      <a (click)="hideWithHandler = !hideWithHandler"> - Show
+        <i class="fas fa-angle-down"></i>
+      </a>
+      <button type="button" class="btn btn-success btn-accesibles" [ngbTooltip]="tableTipContentWithHandler"
+        placement="bottom" (click)="hideWithHandler = !hideWithHandler">
+        Cantidad <span class="badge badge-light">{{ pageStructure.elementos_con_handler.length}}</span>
+      </button>
+    </h5>
+    <table class="table" [hidden]="hideWithHandler">
+      <thead>
+        <tr>
+          <th scope="col">Elemento</th>
+          <th scope="col">ID</th>
+          <th scope="col">Clases</th>
+          <th scope="col">Evento</th>
+          <th scope="col">Comentarios</th>
+          <th scope="col">Información</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let elemConHandler of pageStructure.elementos_con_handler">
+          <td>
+            {{ elemConHandler.tagName }}
+          </td>
+          <td>
+            {{ elemConHandler.id_elem  || 'n/a'}}
+          </td>
+          <td>
+            {{ elemConHandler.className || 'n/a' }}
+          </td>
+          <td>
+            {{ elemConHandler.type }}
+          </td>
+          <td [ngClass]="{'bg-success': elemConHandler.isAccesible, 'bg-danger': !elemConHandler.isAccesible}">
+            <div class='msg-handlers' [innerHTML]="elemConHandler.message"></div>
+          </td>
+          <td>
+            <app-modal modal_title="Información del elemento" open_modal_btn="Ver Más info">
+              <h6>ID:</h6><p *ngIf="elemConHandler.id_elem; else idElemn">{{ elemConHandler.id_elem }}</p><ng-template #idElemn><p>n/a</p></ng-template>
+              <h6>Clases:</h6><p>{{ elemConHandler.className }}</p>
+              <h6>Tipo de elemento:</h6><p>{{ elemConHandler.tagName }}</p>
+              <h6>Código HTML:</h6><p>{{ elemConHandler.outerHTML }} <span class="font-weight-bold" *ngIf="elemConHandler.outerHTML.length >=19">...</span></p>
+              <h6>Tipo de Handler JS:</h6><p>{{ elemConHandler.type }}</p>
+              <h6>Código JS del handler:</h6><p>{{ elemConHandler.func }}</p>
               <hr>
+              <h6 class="font-weight-bold">Atributos</h6>
+              <div>
+                <h6 *ngIf="elemConHandler.tagName === 'A'">Href</h6><p *ngIf="elemConHandler.href; else hrefElemn">{{ elemConHandler.href }}</p><ng-template #hrefElemn><p>n/a</p></ng-template>
+              </div>
+              <h6>tabindex:</h6><p *ngIf="elemConHandler.accessibility_attrib.tabindex; else idtabindex">{{ elemConHandler.accessibility_attrib.tabindex }}</p>
+                <ng-template #idtabindex><p>n/a</p></ng-template>
+              <h6>aria_label:</h6><p *ngIf="elemConHandler.accessibility_attrib.aria_label; else ariaLabelElem">{{ elemConHandler.accessibility_attrib.aria_label }}</p>
+                <ng-template #ariaLabelElem><p>n/a</p></ng-template>
+              <h6>role:</h6><p *ngIf="elemConHandler.accessibility_attrib.role; else roleElem">{{ elemConHandler.accessibility_attrib.role }}</p>
+                <ng-template #roleElem><p>n/a</p></ng-template>
+              <hr>
+              <h6 class="font-weight-bold">Elementos Hijos</h6>
+              <div *ngFor="let child of elemConHandler.children; let i = index">
+                <h6>Hijo #{{ i+1 }}</h6>
+                <h6 *ngIf="child.tagName === 'text'">Es solo texto</h6>
+                <div *ngIf="child.tagName !== 'text'">
+                  <h6>Tipo de elemento:</h6><p>{{ child.tagName | default: 'No tiene.'}}</p>
+                  <h6>Href:</h6><p>{{ child.href | default: 'No tiene.'}}</p>
+                  <h6>Tabindex:</h6><p>{{ child.tabindex | default: 'No tiene.'}}</p>
+                  <h6>Aria Label:</h6><p>{{ child.aria_label | default: 'No tiene.'}}</p>
+                  <h6>Rol:</h6><p>{{ child.role | default: 'No tiene.'}}</p>
+                </div>
+                <hr>
+              </div>
+            </app-modal>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <hr>
+
+    <h5>
+      <span>Listado de elementos interactivos de la pagina web </span>
+      <a (click)="hideInteractivos = !hideInteractivos"> - Show
+        <i class="fas fa-angle-down"></i>
+      </a>
+    </h5>
+    <table class="table" [hidden]="hideInteractivos">
+      <thead>
+        <tr>
+          <th scope="col">Nombre del tipo</th>
+          <th scope="col">Elementos</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let elemInterac of pageStructure.elementos_interactivos">
+          <td>
+            {{ elemInterac.name }}
+            <button type="button" class="btn btn-secondary btn-interactivos" [ngbTooltip]="tableTipContentInteractivos"
+              placement="bottom">
+              Cantidad <span class="badge badge-light">{{ elemInterac.elements.length}}</span>
+            </button>
+          </td>
+          <td>
+            <div *ngFor="let elem of elemInterac.elements">
+              <p>
+                Text: {{ elem.text }} | TagName: {{ elem.tagName }} | Codigo HTML: {{ elem.outerHTML }}
+                <i *ngIf="!accesible(elem.outerHTML)" class="fas fa-universal-access text-danger">No accedido</i>
+              </p>
             </div>
-          </app-modal>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 
-  <hr>
-
-  <h5>
-    <span>Listado de elementos interactivos de la pagina web </span>
-    <a (click)="hideInteractivos = !hideInteractivos"> - Show
-      <i class="fas fa-angle-down"></i>
-    </a>
-  </h5>
-  <table class="table" [hidden]="hideInteractivos">
-    <thead>
-      <tr>
-        <th scope="col">Nombre del tipo</th>
-        <th scope="col">Elementos</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let elemInterac of pageStructure.elementos_interactivos">
-        <td>
-          {{ elemInterac.name }}
-          <button type="button" class="btn btn-secondary btn-interactivos" [ngbTooltip]="tableTipContentInteractivos"
-            placement="bottom">
-            Cantidad <span class="badge badge-light">{{ elemInterac.elements.length}}</span>
-          </button>
-        </td>
-        <td>
-          <div *ngFor="let elem of elemInterac.elements">
-            <p>
-              Text: {{ elem.text }} | TagName: {{ elem.tagName }} | Codigo HTML: {{ elem.outerHTML }}
-              <i *ngIf="!accesible(elem.outerHTML)" class="fas fa-universal-access text-danger">No accedido</i>
-            </p>
-          </div>
-        </td>
-      </tr>
-    </tbody>
-  </table>
 </div>
-
-
 
 <!-- Tooltips -->
 <ng-template #tableTipContentAccesibles>

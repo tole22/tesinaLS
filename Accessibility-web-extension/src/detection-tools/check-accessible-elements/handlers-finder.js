@@ -7,10 +7,10 @@
 function busqueda_de_handlersJS() {
     setTimeout(function () {
         console.log('Listado de listeners');
-        let eventListenersElements = listAllEventListeners();
-        console.log(eventListenersElements);
+        let onClickListenersElements = listOnClickListeners();
+        let clickListenersElements = listClickListeners();
         let elementsToSend = [];
-
+        let eventListenersElements = onClickListenersElements.concat(clickListenersElements);
         eventListenersElements.forEach(currentElem => {
             let children = checkHijos(currentElem.node);
             let accessibility_attribs = checkAccessibleAttributes(currentElem.node);
@@ -38,8 +38,9 @@ function busqueda_de_handlersJS() {
     }, 1000);
 }
 
-function listAllEventListeners() {
-    const allElements = Array.prototype.slice.call(document.querySelectorAll('div, span, li, a'));
+// onClick Events
+function listOnClickListeners() {
+    let allElements = Array.prototype.slice.call(document.querySelectorAll('div, span, li'));
     allElements.push(document); // Elemento document
     allElements.push(window); // Elemento document
 
@@ -52,7 +53,50 @@ function listAllEventListeners() {
         const currentElement = allElements[i];
 
         // Eventos definidos en los atributos del elemento
-        // Ejemplo <div> onclick="cancel()"</div>
+        // Ejemplo <div onclick="cancel()"></div>
+        for (let j = 0; j < types.length; j++) {
+            if (typeof currentElement[types[j]] === 'function') {
+                elements.push({
+                    "node": currentElement,
+                    "type": types[j],
+                    "func": currentElement[types[j]].toString(),
+                });
+            }
+        }
+
+        // Eventos definidos con addEventListener
+        if (typeof currentElement._getEventListeners === 'function') {
+            let evts = currentElement._getEventListeners();
+            if (Object.keys(evts).length > 0) {
+                for (let evt of Object.keys(evts)) {
+                    for (k = 0; k < evts[evt].length; k++) {
+                        elements.push({
+                            "node": currentElement,
+                            "type": evt,
+                            "func": evts[evt][k].listener.toString()
+                        });
+                    }
+                }
+            }
+        }
+    }
+    return elements.sort();
+}
+
+// Click Events
+function listClickListeners() {
+    const allElements = Array.prototype.slice.call(links_visibles_en_el_body);
+
+    const types = ['click']; // solo busco handlers onclick
+
+    let elements = [];
+
+    // Recorro cada uno de los elementos especificados en la busqueda
+    for (let i = 0; i < allElements.length; i++) {
+        const currentElement = allElements[i];
+
+        // Eventos definidos en los atributos del elemento
+        // Ejemplo <div onclick="cancel()"></div>
         for (let j = 0; j < types.length; j++) {
             if (typeof currentElement[types[j]] === 'function') {
                 elements.push({

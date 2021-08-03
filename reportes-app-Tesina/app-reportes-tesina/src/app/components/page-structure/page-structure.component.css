@@ -11,3 +11,16 @@ span.badge {
 .btn-interactivos span.badge {
     font-size: 12px;
 }
+
+.btn-pdf {
+    float: inline-end;
+    font-size: small;
+}
+
+.content {
+    content-visibility: auto;
+}
+
+.msg-handlers {
+    font-size: 14px;
+}

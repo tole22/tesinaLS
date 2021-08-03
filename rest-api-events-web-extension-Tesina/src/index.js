@@ -6,7 +6,6 @@ const app = express();
 
 require('./db/database');
 
-
 // Settings
 app.set('port', process.env.PORT || 8080);
 
@@ -19,7 +18,6 @@ app.use(cors({
     methods: ['GET', 'PUT', 'DELETE', 'PATCH', 'POST'],
     allowedHeaders: 'Content-Type, Authorization, Origin, X-Requested-With, Accept'
   }));
-
 
 // Routes
 app.use('/api/structures', require('./routes/pageStructure.routes'));

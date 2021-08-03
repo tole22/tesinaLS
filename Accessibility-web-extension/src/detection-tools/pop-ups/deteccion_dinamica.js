@@ -1,9 +1,7 @@
 
 // Funcion principal
 function floatElementsDynamicDetection(reportedElements) {
-    console.log('Elementos ocultos:', obtenerElementosOcultos());
     window.addEventListener('load', (event) => {
-        console.log('Elementos ocultos:', obtenerElementosOcultos());
         const hiddenFloatElements = obtenerElementosOcultos();
         setFloatElementsObservables(reportedElements, hiddenFloatElements);
     });
@@ -54,14 +52,11 @@ function check_div_element(arrayElements, mutationRecord) {
                 if (arrayElements.indexOf(mutationRecord.target.id) >= 0 || arrayElements.indexOf(mutationRecord.target.class) >= 0) return;
                 if (mutationRecord.target.id) {
                     arrayElements.push(mutationRecord.target.id);
-                    console.log('modifique el array');
                     isDynamicElementAccesible(mutationRecord.target);
                 } else if (mutationRecord.target.class){
                     arrayElements.push(mutationRecord.target.class); 
-                    console.log('modifique el array');
                     isDynamicElementAccesible(mutationRecord.target); 
                 }
-                console.log(arrayElements);
               }
               
         }  

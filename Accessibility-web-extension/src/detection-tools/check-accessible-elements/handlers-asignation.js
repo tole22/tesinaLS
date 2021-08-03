@@ -7,13 +7,9 @@
 
 function setEventListeners() {
 	console.log('En ejecución: Finder de elementos interactivos inaccesibles con handlers JS asignados');
-	body_btns.forEach(function (btn) {
-		btn.addEventListener('focus', () => { action_on_focus(btn); });
-	});
 	
-	
-	body_links.forEach(function (link) {
-		link.addEventListener('focus', () => { action_on_focus(link); });
+	links_visibles_en_el_body.forEach(function (link) {
+		link.addEventListener('keydown', function (e) { action_on_focus(e, link); });
 	});
 }
 // hay links que no tienen texto, pueden ser una imagen, y en ciertos casos no tienen ni un atributo alt, por ende el screen reader no dice nada
@@ -22,56 +18,53 @@ function setEventListeners() {
 // Funciones en comun
 /**
  * Logica cuando hay foco en @elem
+ * @param {Object} e Evento, 
  * @param {Object} elem 
+ * @description keyCode = 9 para tecla TAB;
+ * keyCode = 88 para tecla X, utilizado por NVDA para links
  */
-function action_on_focus(elem) {
+function action_on_focus(e, elem) {
 	console.log("Se hizo foco en el elemento llamado: "
 		+ elem.innerText // Registrarme - Entrar
 		+ ", de tipo: "
 		+ elem.localName // a - button
 		+ ", "
 		+ elem.computedRole // link - button
+		+ ", keyCode es= "
+		+ e.keyCode
 	);
 
-	/**
-	 * Event Object que voy a mandar al server
-	 * @typedef {Object} Event
-	 * @property {string} baseURI Url donde fue generado el evento
-	 * @property {Object} data Datos del evento como text, tagName,...
-	 * @property {Date} fechaCreacion Fecha de generacion del evento
-	 */
-	var event = {
-		'baseURI': getBaseURI(),
-		'data': {},
-		'fechaCreacion': new Date()
-	};
-	if (elem) {
-		event.data = {
-			'text': elem.text,
-			'tagName': elem.tagName,
-			'outerHTML': elem.outerHTML
+	if (e.keyCode == 9 || e.keyCode == 88) {
+		/**
+		* Event Object que voy a mandar al server
+		* @typedef {Object} Event
+		* @property {string} baseURI Url donde fue generado el evento
+		* @property {Object} data Datos del evento como text, tagName,...
+		* @property {Date} fechaCreacion Fecha de generacion del evento
+		*/
+		var event = {
+			'baseURI': getBaseURI(),
+			'data': {},
+			'fechaCreacion': new Date()
 		};
+		if (elem) {
+			event.data = {
+				'text': elem.text,
+				'tagName': elem.tagName,
+				'outerHTML': elem.outerHTML
+			};
+		}
+
+		save_event_into_db(event);
 	}
-
-	save_event_into_db(event);
-
 };
-
-
-/***********************LIMPIO LOS NODELIST ARRAYS DE ELEMENTOS BASURA********************************/
-
-// Convertir el NodeList de elementos links a un array
-var body_links_array = Array.from(body_links);
-
-// Elimino los links basura que no tienen texto. 
-body_links_array = body_links_array.filter(item => !(item.text == '')); // ver si los links con imagenes sirven ser escuchados
 
 
 /***********************ARMO EL ARREGLO CON LOS ELEMENTOS INTERACTIVOS********************************/
 
 // Links
 var links_elems = [];
-body_links_array.forEach(link => {
+links_visibles_en_el_body.forEach(link => {
 	if(links_elems.length < 100) {
 		links_elems.push(createLinkJson(link));
 	}

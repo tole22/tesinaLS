@@ -37,7 +37,19 @@ const body_btns = document.querySelectorAll('body button');
  * Array de los Links <a> del body
  * @type {NodeListOf<any>} 
 */
-const body_links = document.querySelectorAll('body a');
+const body_links = document.querySelectorAll('body a'); // todos los links del body, pueden ser miles
+const body_links_array = Array.from(body_links); // convierto el objeto a array
+const links_visibles_en_el_body = body_links_array.filter(checkLink);
+
+function checkLink(elem) {
+	let display = window.getComputedStyle(elem).getPropertyValue('display');
+	let visibility = window.getComputedStyle(elem).getPropertyValue('visibility');
+	let noVisible = visibility === 'hidden' || display === 'none';
+	let realNoVisible = elem.offsetWidth == 0 && elem.offsetHeight == 0;
+
+	return !(elem.text == '') && !noVisible && !realNoVisible;
+}
+console.log(links_visibles_en_el_body);
 
 /** 
  * Array de los Divs <div> del body

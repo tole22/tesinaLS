@@ -12,8 +12,13 @@ busqueda_de_handlersJS();
 
 // Arranco la herramienta para detectar los mensajes de error inaccesibles en formularios
 // Finder #2
-//startFormMessagesTool();
+startFormMessagesTool();
 
 // Arranco la herramienta para detectar los elementos flotantes inaccesibles
 // Finder #3
-//deteccion_de_elementos_flotantes();
+deteccion_de_elementos_flotantes();
+
+// Medicion de tiempos
+console.timeEnd('loop');
+var endTime   = performance.now();
+console.log (endTime - startTime);
