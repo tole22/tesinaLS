@@ -37,6 +37,7 @@ Para lograr ver estos datos de una forma legible, se debe ejecutar la aplicació
 
 ## Preview
 El siguiente screenshoot es una muestra de ejemplo para mostrar como son los reportes finales generados por ABF.
+
 ![](/reporte_example.png)
 
 ## Contribución
