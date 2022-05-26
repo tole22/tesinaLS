@@ -43,6 +43,7 @@ El siguiente screenshoot es una muestra de ejemplo para mostrar como son los rep
 El trabajo desarrollado permite a los desarrolladores y dueños de aplicaciones web, obtener reportes de problemas de accesibilidad web complejos, que no
 pueden ser detectados mediante el análisis estático de código. La herramienta resultante es de gran utilidad para mejorar la accesibilidad web, debido a su
 facilidad para ser extendida con nuevos algoritmos de búsqueda, y a su adaptabilidad para diferentes escenarios de búsqueda.
+
 Cualquier mejora de código para contibuir en continuar con la ampliacion de la herramienta es totalmente bienvenida.  
 
 ## Licencia
