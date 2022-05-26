@@ -23,6 +23,9 @@ definieron los pasos para poder ejecutar localmente todos los componentes de la 
 
 ABF esta dividida en tres componentes principales: **Extensión Web**, **API REST - Base de Datos**, y la **Aplicación de Reportes**.
 
+
+![](/diagramaABF.png)
+
 Se necesita tener la extensión web, API REST y la Base de datos ejecutándose para lograr almacenar la información de los bad smells detectados por
 la extensión web.
 
