@@ -5,7 +5,7 @@ Actualmente muchas de las actividades de nuestra vida cotidiana se encuentran in
 acontecen en el mundo está a un simple clic, por eso es de suma importancia lograr que una gran parte de la sociedad tenga la posibilidad de acceder al
 contenido presente en la web. Aquí es donde la accesibilidad web se convierte en un recurso fundamental para combatir con la famosa brecha digital y permitir
 que el contenido web sea accesible a la mayor cantidad de personas posibles. Para brindar accesibilidad en un sitio web, es muy importante integrarla al
-proceso de desarrollo. Para facilitar esta integración y a la detección de problemas de accesibilidad, en esta tesina se desarrolló una herramienta automática
+proceso de desarrollo. Para facilitar esta integración y a la detección de problemas de accesibilidad, en la [tesina para la carrera de Licenciatura en Sistemas](http://sedici.unlp.edu.ar/handle/10915/125055) se desarrolló una herramienta automática
 para la detección y reporte de este tipo de problemas denominada **ABF** (*Accessibility BadSmells Finder*).
 
 ## Código de la aplicación
@@ -40,9 +40,10 @@ El siguiente screenshoot es una muestra de ejemplo para mostrar como son los rep
 ![](/reporte_example.png)
 
 ## Contribución
-Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
-
-Please make sure to update tests as appropriate.
+El trabajo desarrollado permite a los desarrolladores y dueños de aplicaciones web, obtener reportes de problemas de accesibilidad web complejos, que no
+pueden ser detectados mediante el análisis estático de código. La herramienta resultante es de gran utilidad para mejorar la accesibilidad web, debido a su
+facilidad para ser extendida con nuevos algoritmos de búsqueda, y a su adaptabilidad para diferentes escenarios de búsqueda.
+Cualquier mejora de código para contibuir en continuar con la ampliacion de la herramienta es totalmente bienvenida.  
 
 ## Licencia
 [MIT](https://choosealicense.com/licenses/mit/)
